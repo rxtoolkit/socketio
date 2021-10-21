@@ -1,16 +1,16 @@
 {
-  "name": "@buccaneerai/PACKAGE_NAME",
+  "name": "@buccaneerai/rxjs-socketio",
   "version": "1.0.0",
-  "description": "DESCRIPTION",
+  "description": "🚰 Hooks for RxJS Observables to interface with Socket.io servers",
   "main": "dist/index.js",
-  "repository": "https://github.com/buccaneerai/PACKAGE_NAME.git",
+  "repository": "https://github.com/buccaneerai/rxjs-socketio.git",
   "author": "Buccaneer LLC <opensource@buccaneer.ai>",
   "license": "UNLICENSED",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
   "bugs": {
-    "url": "https://github.com/buccaneerai/PACKAGE_NAME/issues"
+    "url": "https://github.com/buccaneerai/rxjs-socketio/issues"
   },
   "keywords": [],
   "directories": {
@@ -21,7 +21,9 @@
   ],
   "scripts": {
     "build": "BABEL_ENV=build babel src --out-dir dist --source-maps --extensions .js --config-file ./babel.config.js --delete-dir-on-start --no-comments",
-    "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support"
+    "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support",
+    "demo:server": "BABEL_ENV=script yarn babel-node --config-file ../../babel.config.js ./demo/server.js",
+    "demo:client": "BABEL_ENV=script yarn babel-node --config-file ../../babel.config.js ./demo/client.js"
   },
   "dependencies": {
     "lodash": "^4.17.20",
