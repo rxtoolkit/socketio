@@ -1,7 +1,7 @@
 {
   "name": "@buccaneerai/rxjs-socketio",
-  "version": "1.0.0",
-  "description": "🚰 Hooks for RxJS Observables to interface with Socket.io servers",
+  "version": "2.0.0",
+  "description": "🚰 Hooks for RxJS Observables to interface with Socket.io (v2) servers",
   "main": "dist/index.js",
   "repository": "https://github.com/buccaneerai/rxjs-socketio.git",
   "author": "Buccaneer LLC <opensource@buccaneer.ai>",
@@ -28,7 +28,7 @@
   "dependencies": {
     "lodash": "^4.17.20",
     "rxjs": "^7.4.0",
-    "socket.io-client": "^4.3.2"
+    "socket.io-client": "^2.x"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.13",
@@ -42,7 +42,7 @@
     "mocha": "^8.2.1",
     "rxjs-marbles": "^6.0.1",
     "sinon": "^9.2.4",
-    "socket.io": "^4.3.1"
+    "socket.io": "^2.x"
   },
   "engines": {
     "node": ">= 12.0.0"
