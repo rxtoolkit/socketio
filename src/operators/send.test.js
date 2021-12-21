@@ -91,7 +91,7 @@ describe('send', () => {
       expect(_socket.emit.callCount).to.equal(2);
       expect(_socket.emit.firstCall.args).to.deep.equal([
         'audio-chunk',
-        {body: 'onefinebody'},
+        // {body: 'onefinebody'},
         blob
       ]);
       done();

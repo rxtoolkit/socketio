@@ -27,8 +27,9 @@ const defaultOptions = {
 function getMessageArgs(message) {
   const topic = message.topic || 'message';
   const binary = message.binary ? [message.binary] : [];
+  if (binary.length) return [topic, ...binary];
   const formattedMessage = omit(message, 'topic', 'binary');
-  return [topic, formattedMessage, ...binary];
+  return [topic, formattedMessage];
 }
 
 function sendWithTransactions({
@@ -48,7 +49,7 @@ function sendWithTransactions({
 }) {
   const transaction$ = new Observable(obs => {
     socket
-      .binary(!!message.binary)
+      // .binary(!!message.binary)
       .compress(!!message.binary)
       .emit(...getMessageArgs(message), (...responseArgs) => {
         if (!validateResponse(responseArgs)) {
