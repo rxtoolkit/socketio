@@ -1,5 +1,5 @@
 import toPairs from 'lodash/toPairs';
-import socketIO from 'socket.io-client';
+import {io as socketIO} from 'socket.io-client';
 import {Observable,of,throwError} from 'rxjs';
 import {map,shareReplay,takeUntil,tap} from 'rxjs/operators';
 
