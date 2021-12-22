@@ -1,6 +1,6 @@
 {
   "name": "@buccaneerai/rxjs-socketio",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "🚰 Hooks for RxJS Observables to interface with Socket.io (v2) servers",
   "main": "dist/index.js",
   "repository": "https://github.com/buccaneerai/rxjs-socketio.git",

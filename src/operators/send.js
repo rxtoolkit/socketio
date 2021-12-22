@@ -76,7 +76,8 @@ function sendWithTransactions({
 function sendMessage(params) {
   const {action, message, shouldWaitForConfirmation, socket} = params;
   if (shouldWaitForConfirmation) return sendWithTransactions(params);
-  socket.binary(!!message.binary)
+  socket
+    // .binary(!!message.binary)
     .compress(!!message.binary)
     .emit(...getMessageArgs(message));
   return of([socket, action]);
