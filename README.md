@@ -1,5 +1,5 @@
 # @buccaneerai/rxjs-socketio
-> 🚰 Hooks for RxJS Observables to interface with Socket.io servers
+> 🚰 Hooks for RxJS Observables to interface with Socket.io (v4) servers
 
 ## Installation
 This is a private package. It requires setting up access in your npm config.
