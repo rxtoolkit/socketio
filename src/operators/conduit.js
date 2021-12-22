@@ -1,4 +1,4 @@
-import {merge,of,throwError} from 'rxjs';
+import {BehaviorSubject,merge,of,throwError} from 'rxjs';
 import {
   bufferWhen,
   delayWhen,
@@ -7,7 +7,7 @@ import {
   mergeMap,
   pairwise,
   share,
-  shareReplay,
+  take,
   takeUntil,
   tap,
   withLatestFrom
@@ -89,12 +89,15 @@ const conduit = function conduit({
   return messageIn$ => {
     // create socket.io client
     const ioEvent$ = _io({url, socketOptions, stop$}).pipe(share());
+    const initiallyConnected$ = new BehaviorSubject();
     const connected$ = ioEvent$.pipe(
       filter(event => event.type === CONNECT),
-      shareReplay(1)
+      take(1),
+      tap(event => initiallyConnected$.next(event))
     );
     const publisher$ = messageIn$.pipe(
-      delayWhen(() => connected$), // delay initial messages until connected
+      // delay initial messages until connection is established
+      delayWhen(() => merge(connected$, initiallyConnected$)),
       // add message buffering/queueing logic (for disconnections)
       (bufferOnDisconnect ? _bufferMessages(ioEvent$) : tap(() => true)),
       _send({io$: ioEvent$}), // send messages to server
