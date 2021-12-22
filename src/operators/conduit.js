@@ -1,11 +1,13 @@
 import {merge,of,throwError} from 'rxjs';
 import {
   bufferWhen,
+  delayWhen,
   filter,
   map,
   mergeMap,
   pairwise,
   share,
+  shareReplay,
   takeUntil,
   tap,
   withLatestFrom
@@ -15,6 +17,7 @@ import {
 import io from '../creators/io';
 import send from './send';
 import consume from './consume';
+import {CONNECT} from '../internals/actions';
 
 const errors = {
   noUrl: new Error('conduit operator requires a {url<String>}'),
@@ -86,8 +89,13 @@ const conduit = function conduit({
   return messageIn$ => {
     // create socket.io client
     const ioEvent$ = _io({url, socketOptions, stop$}).pipe(share());
+    const connected$ = ioEvent$.pipe(
+      filter(event => event.type === CONNECT),
+      shareReplay(1)
+    );
     const publisher$ = messageIn$.pipe(
-      // add message buffering/queueing logic
+      delayWhen(() => connected$), // delay initial messages until connected
+      // add message buffering/queueing logic (for disconnections)
       (bufferOnDisconnect ? _bufferMessages(ioEvent$) : tap(() => true)),
       _send({io$: ioEvent$}), // send messages to server
       filter(() => false) // there should be no output!
