@@ -22,8 +22,8 @@
   "scripts": {
     "build": "BABEL_ENV=build babel src --out-dir dist --source-maps --extensions .js --config-file ./babel.config.js --delete-dir-on-start --no-comments",
     "test": "mocha --require @babel/register --require @babel/polyfill \"./{,!(node_modules)/**/}*.test.js\" --exit --require source-map-support",
-    "demo:server": "BABEL_ENV=script yarn babel-node --config-file ../../babel.config.js ./demo/server.js",
-    "demo:client": "BABEL_ENV=script yarn babel-node --config-file ../../babel.config.js ./demo/client.js"
+    "demo:server": "node ./demo/server.js",
+    "demo:client": "node ./demo/client.js"
   },
   "dependencies": {
     "lodash": "^4.17.20",
