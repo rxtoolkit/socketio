@@ -27,9 +27,8 @@ const defaultOptions = {
 function getMessageArgs(message) {
   const topic = message.topic || 'message';
   const binary = message.binary ? [message.binary] : [];
-  if (binary.length) return [topic, ...binary];
   const formattedMessage = omit(message, 'topic', 'binary');
-  return [topic, formattedMessage];
+  return [topic, formattedMessage, ...binary];
 }
 
 function sendWithTransactions({
