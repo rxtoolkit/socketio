@@ -1,7 +1,7 @@
 import {expect} from 'chai';
 import {marbles} from 'rxjs-marbles/mocha';
 import sinon from 'sinon';
-import {of} from 'rxjs';
+import {isObservable,of} from 'rxjs';
 
 import * as actions from '../internals/actions';
 import conduit, {testExports} from './conduit';
@@ -91,6 +91,32 @@ describe('conduit', () => {
     });
     const actual$ = message$.pipe(passthroughMessageBuffer(ioEvent$));
     const expected$ = m.cold('---1--------|', messages);
+    m.expect(actual$).toBeObservable(expected$);
+  }));
+
+  it('should expose errors via error$ property', marbles(m => {
+    const socket = {};
+    const events = [
+      [socket, {
+        type: actions.NEW_MESSAGE,
+        data: {message: {data: JSON.stringify({text: 'aloha'})}},
+      }],
+      [socket, {
+        type: actions.CONNECT_ERROR,
+        error: new Error('connection error')
+      }],
+    ];
+    const io$ = m.cold('-0-1|', events);
+    const messageIn$ = m.cold('--|');
+    const params = {
+      url: 'wss:fake.buccaneer.ai:883',
+      _io: () => io$,
+      _send: sinon.stub().returns(() => of()),
+      _consume: sinon.stub().returns(() => of()),
+    };
+    const actual$ = messageIn$.pipe(conduit(params)).error$;
+    expect(isObservable(actual$)).to.be.true;
+    const expected$ = m.cold('---0|', [events[1][1].error]);
     m.expect(actual$).toBeObservable(expected$);
   }));
 });

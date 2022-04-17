@@ -48,6 +48,7 @@ const socketConfig = {
 // from the server
 const messageBack$ = messageIn$.pipe(conduit({...socketConfig}));
 messageBack$.subscribe(console.log);
+messageBack$.error$.subscribe(console.error); // optional: handle errors
 // {topic: 'message', body: 'Welcome Matey.'}
 // {topic: 'message', body: 'Yo ho. Yo ho. I am a message from the server.'}
 ```

@@ -17,6 +17,7 @@ import {
 import io from '../creators/io';
 import send from './send';
 import consume from './consume';
+import eventToError from '../lib/eventToError';
 import {CONNECT} from '../internals/actions';
 
 const errors = {
@@ -95,6 +96,7 @@ const conduit = function conduit({
       take(1),
       tap(event => initiallyConnected$.next(event))
     );
+    const error$ = ioEvent$.pipe(eventToError());
     const publisher$ = messageIn$.pipe(
       // delay initial messages until connection is established
       delayWhen(() => merge(connected$, initiallyConnected$)),
@@ -105,7 +107,9 @@ const conduit = function conduit({
     );
     const consumer$ = ioEvent$.pipe(_consume()); // consume messages from client
     // subscribe to both producer and consumer
-    return merge(publisher$, consumer$).pipe(takeUntil(stop$));
+    let output$ = merge(publisher$, consumer$).pipe(takeUntil(stop$));
+    output$.error$ = error$;
+    return output$;
   };
 };
 
