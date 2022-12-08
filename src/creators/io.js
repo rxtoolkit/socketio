@@ -71,8 +71,6 @@ function createObservableFromSocket(
     client.on('error', error => obs.error(error));
     client.io.on('reconnect', () => {
       const obj = eventHandlerMap.reconnect(1);
-      console.log('socket.io.on("reconnect") firing');
-      console.log('calling obs.next(obj) with', obj);
       return obs.next(obj);
     });
   });

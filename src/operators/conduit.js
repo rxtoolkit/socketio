@@ -103,7 +103,6 @@ const conduit = function conduit({
     ) : of();
     const error$ = ioEvent$.pipe(eventToError());
     const publisher$ = merge(reconnected$, messageIn$).pipe(
-    //const publisher$ = messageIn$.pipe(
         // delay initial messages until connection is established
         delayWhen(() => merge(connected$, initiallyConnected$)),
         // add message buffering/queueing logic (for disconnections)
