@@ -18,7 +18,7 @@ import io from '../creators/io';
 import send from './send';
 import consume from './consume';
 import eventToError from '../lib/eventToError';
-import {CONNECT} from '../internals/actions';
+import {CONNECT,RECONNECT} from '../internals/actions';
 
 const errors = {
   noUrl: new Error('conduit operator requires a {url<String>}'),
@@ -77,6 +77,7 @@ const conduit = function conduit({
   url,
   socketOptions = {},
   stop$ = of(),
+  reconnect = null,
   // serializer = JSON.stringify,
   // deserializer = JSON.parse,
   topicsOut = ['message'],
@@ -92,18 +93,22 @@ const conduit = function conduit({
     const ioEvent$ = _io({url, socketOptions, stop$}).pipe(share());
     const initiallyConnected$ = new BehaviorSubject();
     const connected$ = ioEvent$.pipe(
-      filter(event => event.type === CONNECT),
+      filter(event => event.type === CONNECT), // @XXX does this need to be [socket, event] ??
       take(1),
       tap(event => initiallyConnected$.next(event))
     );
+    const reconnected$ = reconnect ? ioEvent$.pipe(
+      filter(([socket, event]) => event.type === RECONNECT),
+      map(event => reconnect(event))
+    ) : of();
     const error$ = ioEvent$.pipe(eventToError());
-    const publisher$ = messageIn$.pipe(
-      // delay initial messages until connection is established
-      delayWhen(() => merge(connected$, initiallyConnected$)),
-      // add message buffering/queueing logic (for disconnections)
-      (bufferOnDisconnect ? _bufferMessages(ioEvent$) : tap(() => true)),
-      _send({io$: ioEvent$}), // send messages to server
-      filter(() => false) // there should be no output!
+    const publisher$ = merge(reconnected$, messageIn$).pipe(
+        // delay initial messages until connection is established
+        delayWhen(() => merge(connected$, initiallyConnected$)),
+        // add message buffering/queueing logic (for disconnections)
+        (bufferOnDisconnect ? _bufferMessages(ioEvent$) : tap(() => true)),
+        _send({io$: ioEvent$}), // send messages to server
+        filter(() => false) // there should be no output!
     );
     const consumer$ = ioEvent$.pipe(_consume()); // consume messages from client
     // subscribe to both producer and consumer

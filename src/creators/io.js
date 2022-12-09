@@ -69,6 +69,10 @@ function createObservableFromSocket(
     const emitToTopic = createTopicEmitter(obs);
     topics.map(handleTopic(client, obs, emitToTopic));
     client.on('error', error => obs.error(error));
+    client.io.on('reconnect', () => {
+      const obj = eventHandlerMap.reconnect(1);
+      return obs.next(obj);
+    });
   });
 }
 
@@ -85,7 +89,9 @@ const io = function io({
   const client = _socketIO(url, {...defaultOptions, ...socketOptions});
   const action$ = _createObservableFromSocket(client, topics);
   return action$.pipe(
-    map(action => [client, action]),
+    map(action => {
+      return [client, action];
+    }),
     takeUntil(stop$.pipe(
       tap(() => client.disconnect()) // instruct client to disconnect
     )),
