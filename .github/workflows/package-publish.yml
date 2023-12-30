@@ -20,14 +20,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: 'https://npm.pkg.github.com/'
-          scope: '@buccaneerai'
+          scope: '@rxtk'
           always-auth: true
           cache: yarn
       - name: Setup private npm auth
         run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Install dependencies
         run: npx ci
       - run: npx semantic-release --dry-run
@@ -48,8 +45,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          registry-url: 'https://npm.pkg.github.com/'
-          scope: '@buccaneerai'
+          scope: '@rxtk'
           always-auth: true
           cache: yarn
       - name: Configure .yarnrc
@@ -88,8 +84,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: ${{ env.NODE_VERSION }}
-          registry-url: 'https://npm.pkg.github.com/'
-          scope: '@buccaneerai'
+          scope: '@rxtk'
           always-auth: true
           cache: yarn
       - name: Install dependencies

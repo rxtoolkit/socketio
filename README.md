@@ -1,11 +1,8 @@
-# @buccaneerai/rxjs-socketio
+# @rxtk/socketio
 > 🚰 Hooks for RxJS Observables to interface with Socket.io (v4) servers
 
-## Installation
-This is a private package. It requires setting up access in your npm config.
-
 ```bash
-yarn add @buccaneerai/rxjs-socketio
+yarn add @rxtk/socketio
 ```
 
 ## Compatability
@@ -25,7 +22,7 @@ the operator will be sent to the server.  By default, the output stream is the m
 sent back from the server.
 ```js
 import {from} from 'rxjs';
-import {conduit} from '@buccaneerai/rxjs-socketio';
+import {conduit} from '@rxtk/socketio';
 
 const messageIn$ = from([
   {topic: 'message', body: 'yarrr'},
@@ -56,7 +53,7 @@ messageBack$.error$.subscribe(console.error); // optional: handle errors
 You can also send binary data:
 ```js
 import {from} from 'rxjs';
-import {conduit} from '@buccaneerai/rxjs-socketio';
+import {conduit} from '@rxtk/socketio';
 
 const messageIn$ = from([
   {topic: 'next-audio-chunk', index: 0, binary: Buffer.from('foobar', 'base64')},
@@ -72,8 +69,3 @@ messageIn$.pipe(conduit({...socketConfig}));
 ```
 
 The library also supports some advanced features commonly needed in real applications (like sending binary, verifying receipt of messages before sending the next, customizing the socket.io client, serializers/deserializers and handling disconnections).  See the documentation for more information.
-
-```
-
-## Contributing, Deployments, etc.
-See [CONTRIBUTING.md](https://github.com/buccaneerai/rxjs-socketio/blob/master/docs/CONTRIBUTING.md) file for information about deployments, etc.

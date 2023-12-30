@@ -11,11 +11,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: '16.x'
-          registry-url: 'https://npm.pkg.github.com/'
-          scope: '@buccaneerai'
-          always-auth: true
       - run: yarn install
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - run: yarn test
       - run: yarn build

@@ -1,16 +1,13 @@
 {
-  "name": "@buccaneerai/rxjs-socketio",
+  "name": "@rxtk/socketio",
   "version": "4.2.0",
   "description": "🚰 Hooks for RxJS Observables to interface with Socket.io (v4) servers",
   "main": "dist/index.js",
-  "repository": "https://github.com/buccaneerai/rxjs-socketio.git",
-  "author": "Buccaneer LLC <opensource@buccaneer.ai>",
+  "repository": "https://github.com/rxtk/socketio.git",
+  "author": "Brian Flaherty <opensource@buccaneer.ai>",
   "license": "UNLICENSED",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
-  },
   "bugs": {
-    "url": "https://github.com/buccaneerai/rxjs-socketio/issues"
+    "url": "https://github.com/rxtk/socketio/issues"
   },
   "keywords": [],
   "directories": {
