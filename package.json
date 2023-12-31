@@ -4,7 +4,7 @@
   "description": "🚰 Hooks for RxJS Observables to interface with Socket.io (v4) servers",
   "main": "dist/index.js",
   "repository": "https://github.com/rxtoolkit/socketio.git",
-  "author": "Brian Flaherty <opensource@buccaneer.ai>",
+  "author": "Buccaneer LLC <opensource@buccaneer.ai>",
   "license": "UNLICENSED",
   "bugs": {
     "url": "https://github.com/rxtoolkit/socketio/issues"

@@ -48,8 +48,6 @@ jobs:
           scope: '@rxtk'
           always-auth: true
           cache: yarn
-      - name: Configure .yarnrc
-        run: rm .yarnrc
       - name: Install npm dependencies
         run: yarn
         env:
