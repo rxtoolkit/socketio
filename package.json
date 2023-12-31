@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "repository": "https://github.com/rxtoolkit/socketio.git",
   "author": "Buccaneer LLC <opensource@buccaneer.ai>",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/rxtoolkit/socketio/issues"
   },
