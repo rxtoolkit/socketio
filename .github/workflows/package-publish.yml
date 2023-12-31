@@ -4,7 +4,7 @@ on:
   push:
     branches: [ master ]
 env:
-  NODE_VERSION: 16.x
+  NODE_VERSION: 20.x
 jobs:
   get-next-version:
     name: Gets the next version
