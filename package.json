@@ -1,6 +1,6 @@
 {
   "name": "@rxtk/socketio",
-  "version": "4.2.1",
+  "version": "4.2.2",
   "description": "🚰 Hooks for RxJS Observables to interface with Socket.io (v4) servers",
   "main": "dist/index.js",
   "repository": "https://github.com/rxtoolkit/socketio.git",

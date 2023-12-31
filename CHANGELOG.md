@@ -1,3 +1,10 @@
+## [4.2.2](https://github.com/rxtoolkit/socketio/compare/v4.2.1...v4.2.2) (2023-12-31)
+
+
+### Bug Fixes
+
+* adjustments to package.json ([0ae068b](https://github.com/rxtoolkit/socketio/commit/0ae068bec8a4a10312e91a15edb0ba0e5349491a))
+
 ## [4.2.1](https://github.com/rxtoolkit/socketio/compare/v4.2.0...v4.2.1) (2023-12-31)
 
 
