@@ -68,4 +68,12 @@ messageIn$.pipe(conduit({...socketConfig}));
 // {topic: 'audio-received', index: 1}
 ```
 
-The library also supports some advanced features commonly needed in real applications (like sending binary, verifying receipt of messages before sending the next, customizing the socket.io client, serializers/deserializers and handling disconnections).  See the documentation for more information.
+## Advanced configuration
+The library also supports some advanced features commonly needed in real applications:
+- sending binary
+- verifying receipt of messages before sending the next
+- customizing the socket.io client
+- adding serializers/deserializers
+- handling disconnections
+
+See the the code (`src/operators/conduit`) for advanced configuration options.  This is a pretty lightweight wrapper and the code should be pretty easy to read and understand.
