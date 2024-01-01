@@ -2,6 +2,10 @@
 > 🚰 Hooks for RxJS Observables to interface with Socket.io (v4) servers
 
 ```bash
+npm i @rxtk/socketio
+```
+
+```bash
 yarn add @rxtk/socketio
 ```
 
